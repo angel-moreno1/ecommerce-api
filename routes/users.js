@@ -1,15 +1,12 @@
 import { Router } from 'express';
+import { 
+    usersMiddleware,
+    oneUserMiddleware
+} from '../middleware/users.js';
 
-const route = Router();
+const route = Router(); 
 
-let dummyUsers = [
-    {
-        name: 'angel moreno',
-        age: 20,
-        email: 'sldk@gmail'
-    }
-];
-
-route.get('/', (_req, res) => void res.status(200).json(dummyUsers).end());
+route.get('/', usersMiddleware);
+route.get('/:id', oneUserMiddleware);
 
 export default route;
