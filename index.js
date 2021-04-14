@@ -6,7 +6,7 @@ const server = http.createServer(app);
 
 const PORT = process.env.PORT || 3000;
 
-const io = new Server(server, {cors: { origin: '*' }}) ;
+const io = new Server(server, {cors: { origin: '*' }, serveClient: false}) ;
 
 io.on('connection', socket => {
     console.log('joined', socket);
