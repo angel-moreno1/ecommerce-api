@@ -1,0 +1,13 @@
+### -create a user
+
+POST http://localhost:3000/api/users/create HTTP/1.1
+content-type: application/json
+
+{
+    "name": "angel",
+    "age": "33"
+}
+
+### -get a single user
+
+GET http://localhost:3000/api/users/1

@@ -28,3 +28,12 @@ export const oneUserController = (req, res, next) => {
         next(error);
     }
 };
+
+export const userRegistrationController = (req, res, next) => {
+    try {  
+        const data = req.body;
+        console.log(data);
+    } catch (error) {
+        next(error);
+    }
+};
