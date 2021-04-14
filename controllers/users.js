@@ -22,7 +22,7 @@ export const oneUserController = (req, res, next) => {
         if(userExist) {
             res.send(userExist);
         }else {
-            res.status(404).send('user not found');
+            res.status(404).send({ error: `user with id: ${id} not found` });
         }
     } catch (error) {
         next(error);
