@@ -13,9 +13,9 @@ let dummyUsers = [
     }
 ];
 
-export const usersMiddleware = (_req, res) => void res.status(200).json(dummyUsers).end();
+export const usersController = (_req, res) => void res.status(200).json(dummyUsers).end();
 
-export const oneUserMiddleware = (req, res, next) => {
+export const oneUserController = (req, res, next) => {
     try {
         const id = Number(req.params.id);
         const userExist = dummyUsers.find(user => user.id === id);

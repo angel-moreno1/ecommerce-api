@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { 
-    usersMiddleware,
-    oneUserMiddleware
-} from '../middleware/users.js';
+    usersController,
+    oneUserController
+} from '../controllers/users.js';
 
 const route = Router(); 
 
-route.get('/', usersMiddleware);
-route.get('/:id', oneUserMiddleware);
+route.get('/', usersController);
+route.get('/:id', oneUserController);
 
 export default route;
