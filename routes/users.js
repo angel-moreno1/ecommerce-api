@@ -2,8 +2,14 @@ import { Router } from 'express';
 
 const route = Router();
 
-route.get('/', (req, res) => {
-    res.send('hola');
-});
+let dummyUsers = [
+    {
+        name: 'angel moreno',
+        age: 20,
+        email: 'sldk@gmail'
+    }
+];
+
+route.get('/', (_req, res) => void res.status(200).json(dummyUsers).end());
 
 export default route;
