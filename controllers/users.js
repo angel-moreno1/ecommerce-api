@@ -37,6 +37,7 @@ export const userRegistrationController = async (req, res, next) => {
             password: hashedPassword
         };
         const user = await User.create(data);
+        // send email to user to verify account
         res.json(user);
         
     } catch (error) {
@@ -50,8 +51,9 @@ export const userLoginController = async (req, res, next) => {
         const userExists = await User.findOne({ email });
         if(userExists){
             const correctPassoword = await bcrypt.compare(password, userExists.password);
-            console.log(userExists);
-            if(correctPassoword){
+            if(!userExists.active) {
+                res.json({ message: 'account not active. please confirm your email' });
+            } else if (correctPassoword) {
                 const publicInfo = {
                     _id: userExists._id,
                     name: userExists.name,

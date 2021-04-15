@@ -12,12 +12,15 @@ const userSchema  = new mongoose.Schema(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         password: {
             type: String,
             required: true
-        }
+        },
+        active: { type: Boolean, default: false },
+        products: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
     },
 );
 
