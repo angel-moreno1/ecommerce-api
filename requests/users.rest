@@ -7,7 +7,7 @@ content-type: application/json
     "name": "Angel",
     "lastName": "Moreno",
     "email": "angelmrsofa@gmail.com",
-    "password": "reyescsp2001"
+    "password": "fgdgdgd"
 }
 
 ### -get a single user
