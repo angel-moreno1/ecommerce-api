@@ -5,16 +5,22 @@ Content-Type: application/json
 {
     "name": "bruno",
     "lastName": "mora",
-    "email": "sadxcxddsfz@gmail.com",
-    "password": "34dfg35",
+    "email": "morabruno@gmail.com",
+    "password": "bur123",
     "role": "user"
 }
 
 
 
 
+### - verify account 
+GET http://localhost:3000/api/email/verify?token=eyJhbGciJIUzI1NiJ9.bW9yYWJydW5vQGdtYWlsLmNvbQ.AOMPu-xl3fmgMQZB_QmHVKsQrerocKRrJiyU3N8DXhY HTTP/1.1
+
+
+
+
 ### -get a single user
-GET http://localhost:3000/api/users/6077d5a349401c1890ddd8ed HTTP/1.1
+GET http://localhost:3000/api/users/6077edc159c58c02e8f95d71 HTTP/1.1
 
 
 
@@ -24,8 +30,8 @@ POST http://localhost:3000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "sadxcxddsfz@gmail.com",
-    "password": "34dfg35"
+    "email": "morabruno@gmail.com",
+    "password": "bur123"
 }
 
 

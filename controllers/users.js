@@ -40,7 +40,7 @@ export const userRegistrationController = async (req, res, next) => {
         const user = await User.create(data);
         // send email to user to verify account
         const tokenToverify = jtw.sign(email, process.env.JTW_SECRET);
-        const verifyUrl = `${process.env.HOST}/verify?email=${email}&token=${tokenToverify}`;
+        const verifyUrl = `${process.env.HOST}/api/email/verify?token=${tokenToverify}`;
         console.log(verifyUrl);
         res.json(user);
         

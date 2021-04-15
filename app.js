@@ -17,13 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', usersRoute);
 
 app.get('/api/email/verify', async (req, res) => {
-    const { email, token } = req.query;
+    const { token } = req.query;
     const decode = jtw.decode(token);
-    if(decode === email) {
-        const user = await User.findOneAndUpdate({ email }, { active: true });
-        res.status(201).json({ message: 'account verified', user });
+    if(decode) {
+        await User.findOneAndUpdate({ email: decode }, { active: true });
+        res.status(201).json({ message: 'account verified' });
     } else {
-        res.json({error: 'token or email modified'});
+        res.json({error: 'token modified'});
     }
 });
 
