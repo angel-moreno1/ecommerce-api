@@ -19,9 +19,21 @@ const userSchema  = new mongoose.Schema(
             type: String,
             required: true
         },
-        active: { type: Boolean, default: false },
-        products: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
-    },
+        role: {
+            type: String, 
+            required: true,
+            default: 'user'
+        },
+        active: { 
+            type: Boolean, default: false 
+        },
+        created: { 
+            type: Date, default: Date.now() 
+        },
+        products: { 
+            type: mongoose.Schema.Types.ObjectId, ref: 'Product' 
+        }
+    }
 );
 
 export const User = mongoose.model('Users', userSchema);

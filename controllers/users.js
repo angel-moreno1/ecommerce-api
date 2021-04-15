@@ -28,16 +28,20 @@ export const oneUserController = async (req, res, next) => {
 
 export const userRegistrationController = async (req, res, next) => {
     try {  
-        const { name, lastName, email, password } = req.body;
+        const { name, lastName, email, password, role } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const data = { 
             name,
             lastName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         };
         const user = await User.create(data);
         // send email to user to verify account
+        const tokenToverify = jtw.sign(email, process.env.JTW_SECRET);
+        const verifyUrl = `${process.env.HOST}/verify?email=${email}&token=${tokenToverify}`;
+        console.log(verifyUrl);
         res.json(user);
         
     } catch (error) {
