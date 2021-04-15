@@ -1,26 +1,17 @@
-let dummyUsers = [
-    {
-        id: 1,
-        name: 'angel moreno',
-        age: 20,
-        email: 'sldk@gmail'
-    },
-    {
-        id: 2,
-        name: 'luisa figueroa',
-        age: 26,
-        email: 'dsfsdfdsf@gmail'
-    }
-];
+import bcrypt from 'bcryptjs';
+import User from '../models/user.js';
 
-export const usersController = (_req, res) => void res.status(200).json(dummyUsers).end();
+export const usersController = async (_req, res) => { 
+    const users = await User.find({});
+    res.status(200).json(users);
+}; 
 
-export const oneUserController = (req, res, next) => {
+export const oneUserController = async (req, res, next) => {
     try {
-        const id = Number(req.params.id);
-        const userExist = dummyUsers.find(user => user.id === id);
-        if(userExist) {
-            res.send(userExist);
+        const id = req.params.id;
+        const user = await User.findById(id);
+        if(user) {
+            res.send(user);
         }else {
             res.status(404).send({ error: `user with id: ${id} not found` });
         }
@@ -29,10 +20,19 @@ export const oneUserController = (req, res, next) => {
     }
 };
 
-export const userRegistrationController = (req, res, next) => {
+export const userRegistrationController = async (req, res, next) => {
     try {  
-        const data = req.body;
-        console.log(data);
+        const { name, lastName, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const data = { 
+            name,
+            lastName,
+            email,
+            password: hashedPassword
+        };
+        const user = await User.create(data);
+        res.json(user);
+        
     } catch (error) {
         next(error);
     }
