@@ -1,5 +1,4 @@
 ### -create a user
-
 POST http://localhost:3000/api/users/create HTTP/1.1
 Content-Type: application/json
 
@@ -11,12 +10,16 @@ Content-Type: application/json
     "role": "user"
 }
 
-### -get a single user
 
-GET http://localhost:3000/api/users/1 HTTP/1.1
+
+
+### -get a single user
+GET http://localhost:3000/api/users/6077d5a349401c1890ddd8ed HTTP/1.1
+
+
+
 
 ### - login user
-
 POST http://localhost:3000/api/users/login HTTP/1.1
 Content-Type: application/json
 
@@ -26,8 +29,10 @@ Content-Type: application/json
 }
 
 
+
+
 ### - update user
-POST http://localhost:3000/api/users/update HTTP/1.1
+PUT http://localhost:3000/api/users/update HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDc3Yjc3ZDkzOTMyMjJhOWNiMjgwMGQiLCJuYW1lIjoibWFudWVsIiwibGFzdE5hbWUiOiJzYXVjZWRvIiwiZW1haWwiOiJzYXVjZWRvQGdtYWlsLmNvbSIsImlhdCI6MTYxODQ1ODU1OH0.NPgE4MLIvRUYU-vd0VoEVB2Pb6H5R-mT_bzlW6ui8NE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDc3ZDVhMzQ5NDAxYzE4OTBkZGQ4ZWQiLCJuYW1lIjoiYnJ1bm8iLCJsYXN0TmFtZSI6Im1vcmEiLCJlbWFpbCI6InNhZHhjeGRkc2Z6QGdtYWlsLmNvbSIsImlhdCI6MTYxODQ2NzU5M30.qq8SFsMp_41Jg0e0cGQnxEHJyKU4i9lQLlJHjP4D5p0
 
