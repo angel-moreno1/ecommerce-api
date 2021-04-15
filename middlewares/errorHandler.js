@@ -1,6 +1,5 @@
 
 const erroHandler = (err, _req, res, next) => {
-    console.log('error es:', err);
     if(err.MongooseError) {
         return res.status(400).send({ message: 'mongoose error', error: err });
     }

@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import jtw from 'jsonwebtoken';
 import User from '../models/user.js';
 
 export const usersController = async (_req, res) => { 
@@ -11,9 +12,14 @@ export const oneUserController = async (req, res, next) => {
         const id = req.params.id;
         const user = await User.findById(id);
         if(user) {
-            res.send(user);
+            res.send({
+                _id: user._id,
+                name: user.name,
+                lastName: user.lastName,
+                email: user.email,
+            });
         }else {
-            res.status(404).send({ error: `user with id: ${id} not found` });
+            res.status(404).json({ error: `user with id: ${id} not found` });
         }
     } catch (error) {
         next(error);
@@ -36,4 +42,35 @@ export const userRegistrationController = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+export const userLoginController = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        const userExists = await User.findOne({ email });
+        if(userExists){
+            const correctPassoword = await bcrypt.compare(password, userExists.password);
+            console.log(userExists);
+            if(correctPassoword){
+                const publicInfo = {
+                    _id: userExists._id,
+                    name: userExists.name,
+                    lastName: userExists.lastName,
+                    email: userExists.email,
+                };
+                res.json({...publicInfo, token: jtw.sign(publicInfo, process.env.JTW_SECRET) });
+            }else {
+                res.status(400).json({ error: 'Invalid email or password' });
+            }
+        }else {
+            res.status(404).json({ error: 'Invalid email or password' });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const userUpdateController = (req, res) => {
+    res.json({ user: req.user });
 };

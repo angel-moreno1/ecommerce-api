@@ -1,15 +1,32 @@
 ### -create a user
 
 POST http://localhost:3000/api/users/create HTTP/1.1
-content-type: application/json
+Content-Type: application/json
 
 {
-    "name": "Angel",
-    "lastName": "Moreno",
-    "email": "angelmrsofa@gmail.com",
-    "password": "reyescsp2001"
+    "name": "arturo",
+    "lastName": "arned",
+    "email": "arturo@gmail.com",
+    "password": "43242345"
 }
 
 ### -get a single user
 
 GET http://localhost:3000/api/users/1 HTTP/1.1
+
+### - login user
+
+POST http://localhost:3000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "arturo@gmail.com",
+    "password": "43242345"
+}
+
+
+### - update user
+POST http://localhost:3000/api/users/update HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDc3OTk3YzdjM2Y2OTJhOTBhNWY4ZmIiLCJuYW1lIjoiYXJ0dXJvIiwibGFzdE5hbWUiOiJhcm5lZCIsImVtYWlsIjoiYXJ0dXJvQGdtYWlsLmNvbSIsImlhdCI6MTYxODQ1MzkwMX0.c4ZD2uaZ2XhqiFdnITa38weeND3WjiphfSTpND2hhwQ
+
