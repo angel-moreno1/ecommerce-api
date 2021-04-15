@@ -15,6 +15,6 @@ route.get('/', usersController);
 route.get('/:id', oneUserController);
 route.post('/create', userRegistrationController);
 route.post('/login', userLoginController);
-route.post('/update', isAuth, userUpdateController);
+route.put('/update', isAuth, userUpdateController);
 
 export default route;
