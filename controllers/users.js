@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jtw from 'jsonwebtoken';
 import User from '../models/user.js';
+import mailgun from 'mailgun-js';
 
 export const usersController = async (_req, res) => { 
     const users = await User.find({});
@@ -27,7 +28,20 @@ export const oneUserController = async (req, res, next) => {
 };
 
 export const userRegistrationController = async (req, res, next) => {
-    try {  
+    try { 
+        /**
+         * should receive in the body a url to putting
+         * in the user send email to redirect to it 
+         * and that url need to be modify here with query: ?token=$token
+         * when user click. Frontend need to make a get request to:
+         * /api/email/verify?token=$token ( $token come in the url previus send it for backend to user email )
+        */ 
+        const mg = mailgun(
+            { 
+                apiKey: process.env.API_KEY_MAILGUN || 'ss', 
+                domain: process.env.DOMAIN  
+            }
+        );
         const { name, lastName, email, password, role } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const data = { 
@@ -38,10 +52,24 @@ export const userRegistrationController = async (req, res, next) => {
             role
         };
         const user = await User.create(data);
-        // send email to user to verify account
         const tokenToverify = jtw.sign(email, process.env.JTW_SECRET);
+        // this url need to be modify with the url that come in body
         const verifyUrl = `${process.env.HOST}/api/email/verify?token=${tokenToverify}`;
-        console.log(verifyUrl);
+        const msg = {
+            from: 'Amazona <amazona@mg.amazona.com.mx>',
+            to: 'angelmrsofa@gmail.com',
+            subject: 'company name, please verify your account',
+            html: `please click in this link to confirm your account: <a href="${verifyUrl}">verify link</a> <br/><br/><br/><br/>.or copy this: ${verifyUrl} and paste to your browser. `
+        };
+        mg.messages()
+            .send(
+                msg,
+                (error, body) => {
+                    if(error){
+                        return console.log('was and error');
+                    }
+                    console.log('body:', body);
+                });
         res.json(user);
         
     } catch (error) {
