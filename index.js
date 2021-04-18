@@ -1,10 +1,10 @@
-import http from 'http';
+import { createServer } from 'http';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app.js';
 import { Server } from 'socket.io';
 
-const server = http.createServer(app);
+const server = createServer(app);
 
 const PORT = process.env.PORT || 3000;
 dotenv.config();
